@@ -1,7 +1,7 @@
 {
-  "name": "@jdes/validator",
+  "name": "@jdes/express-swagger-validator",
   "version": "1.0.0",
-  "description": "A Swagger validator for Express.js",
+  "description": "A Swagger validator and router for Express.js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
