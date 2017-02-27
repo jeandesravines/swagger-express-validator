@@ -1,16 +1,35 @@
 {
   "name": "@jdes/express-swagger-validator",
+  "private": true,
   "version": "1.0.0",
   "description": "A Swagger validator and router for Express.js",
-  "main": "index.js",
+  "author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeandesravines/express-swagger-validator.git"
+  },
   "scripts": {
+    "lint": "eslint --fix lib test",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "ajv": "^4.11.3",
     "express": "^4.14.1",
     "swagger-express-middleware": "^1.0.0-alpha.12"
+  },
+  "devDependencies": {
+    "eslint": "^3.11.1",
+    "eslint-config-google": "^0.7.0",
+    "pre-git": "^3.10.0"
+  },
+  "config": {
+    "pre-git": {
+      "commit-msg": "simple",
+      "post-commit": "git status",
+      "pre-commit": "npm run --silent lint",
+      "pre-push": "npm run --silent test"
+    }
   }
 }
