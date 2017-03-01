@@ -1,5 +1,5 @@
 {
-  "name": "@jdes/express-swagger-validator",
+  "name": "@jdes/swagger-express-validator",
   "private": true,
   "version": "1.0.0",
   "description": "A Swagger validator and router for Express.js",
