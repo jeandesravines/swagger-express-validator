@@ -1,6 +1,5 @@
 {
   "name": "@jdes/swagger-express-validator",
-  "private": true,
   "version": "1.0.0",
   "description": "A Swagger validator and router for Express.js",
   "author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
