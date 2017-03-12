@@ -1,5 +1,6 @@
 {
   "name": "@jdes/swagger-express-validator",
+  "private": true,
   "version": "1.0.0",
   "description": "A Swagger validator and router for Express.js",
   "author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
@@ -27,8 +28,8 @@
     "pre-git": {
       "commit-msg": "simple",
       "post-commit": "git status",
-      "pre-commit": "npm run --silent lint",
-      "pre-push": "npm run --silent test"
+      "pre-commit": "npm run -s lint",
+      "pre-push": "npm -s test"
     }
   }
 }
