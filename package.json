@@ -1,6 +1,6 @@
 {
   "name": "@jdes/swagger-express-validator",
-  "private": true,
+  "private": false,
   "version": "1.0.0",
   "description": "A Swagger validator and router for Express.js",
   "author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
@@ -11,16 +11,19 @@
     "url": "https://github.com/jeandesravines/express-swagger-validator.git"
   },
   "scripts": {
+    "commit": "commit-wizard",
+    "coveralls": "cat coverage/lcov.info | coveralls",
     "lint": "eslint --fix lib test",
-    "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test": "jest"
   },
   "dependencies": {
     "ajv": "^5.1.5",
+    "coveralls": "^2.13.1",
     "express": "^4.15.3",
     "swagger-express-middleware": "^1.0.0-alpha.12"
   },
   "devDependencies": {
+    "@jdes/jest-sandbox": "^1.0.0",
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.3",

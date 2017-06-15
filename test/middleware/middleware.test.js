@@ -1,7 +1,7 @@
+const sandbox = require('@jdes/jest-sandbox').create();
 const Middleware = require('../../lib/middleware/middleware');
 const Request = require('../mock/request');
 const Response = require('../mock/response');
-const sandbox = require('../mock/sandbox').create();
 
 afterEach(() => {
   sandbox.restoreAllMocks()

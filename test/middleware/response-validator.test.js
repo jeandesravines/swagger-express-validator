@@ -80,7 +80,7 @@ describe('middleware', () => {
 
     expect(() => ResponseValidator.handler(req))
       .toThrow(new ResponseBodyError(
-        expect.anything(), {
+        expect.any(String), {
           name: 'Jean',
         }
       ));
