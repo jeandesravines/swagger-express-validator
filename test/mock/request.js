@@ -13,10 +13,18 @@ class Request {
         info: jest.fn(),
         warning: jest.fn(),
         error: jest.fn()
-      },
+      }
+    };
+
+    this.app = {
+      locals: {
+        logger: this.container.logger
+      }
     };
 
     this.query = {};
+
+    //////////////////////////////////////////////
 
     Object.keys(data).forEach((key) => {
       this[key] = typeof this[key] === 'object' ?
