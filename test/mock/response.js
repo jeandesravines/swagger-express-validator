@@ -12,8 +12,12 @@ class Response {
     this.status = jest.fn().mockReturnThis();
     this.headersSent = false;
 
+    //////////////////////////////////////////////
+
     Object.keys(data).forEach((key) => {
-      this[key] = data[key];
+      this[key] = typeof this[key] === 'object' ?
+        Object.assign(this[key], data[key]) :
+        data[key];
     });
   }
 }
