@@ -13,9 +13,7 @@ class Response {
     this.headersSent = false;
 
     Object.keys(data).forEach((key) => {
-      this[key] = typeof this[key] === 'object' ?
-        Object.assign(this[key], data[key]) :
-        data[key];
+      this[key] = data[key];
     });
   }
 }

@@ -1,10 +1,15 @@
+const Sandbox = require("@jdes/jest-sandbox");
+const configuration = require('../../lib/configuration/configuration');
 const ErrorHandler = require('../../lib/middleware/error-handler');
+const Middleware = require("../../lib/middleware/middleware");
 const Request = require('../mock/request');
 const Response = require('../mock/response');
-const configuration = require('../../lib/configuration/configuration');
+
 const backup = Object.assign({}, configuration);
+const sandbox = new Sandbox();
 
 afterEach(() => {
+  sandbox.restoreAllMocks();
   Object.assign(configuration, backup);
 });
 
@@ -113,5 +118,24 @@ describe('handler', () => {
 
     expect(req.container.logger.error).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(500);
+  });
+});
+
+describe("middleware", () => {
+  test("should calls handler", () => {
+    const req = new Request();
+    const res = new Response();
+    const err = new Error();
+    const next = () => void 0;
+    
+    const spyError = sandbox.spyOn(Middleware, "error");
+    const spyHandler = sandbox.spyOn(ErrorHandler, "handler")
+      .mockReturnValue();
+    
+    return ErrorHandler.middleware(err, req, res, next)
+      .then(() => {
+        expect(spyError).toHaveBeenCalledWith(err, req, res, next);
+        expect(spyHandler).toHaveBeenCalledWith(err, req, res);
+      });
   });
 });
