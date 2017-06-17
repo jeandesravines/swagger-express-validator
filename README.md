@@ -20,9 +20,9 @@ npm install --save-dev @jdes/swagger-express-validator
 
 ## API 
 
-### App.start(): Promise.<express.App>
+### App.start(options: Object): Promise.<express.App>
 
-Start the app and resolves.
+Start the server.
 
 ### HttpError: Error
 
@@ -31,15 +31,19 @@ Parent class of the validator's errors.
 ## Examples
 
 ```javascript
-const app = require('@jdes/swagger-express-validator').App;
-const logger = require('winston');
+const App = require("@jdes/swagger-express-validator").App;
+const path = require("path");
+const logger = require("winston");
 
 const options = {
   logger,
-  controllers: path.resolve("./controllers")
+  paths: {
+    controllers: path.join(__dirname, "controllers"),
+    swagger: path.join(__dirname, "swagger", "swagger.json")
+  }
 };
 
-App.start(paths, logger)
+App.start(options)
   .then((app) => {
     app.listen(8080, () => {
       logger.info(`Server launched on 8080`);
