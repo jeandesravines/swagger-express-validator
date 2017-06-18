@@ -13,7 +13,7 @@
   "scripts": {
     "commit": "commit-wizard",
     "coveralls": "cat coverage/lcov.info | coveralls",
-    "lint": "eslint --fix lib test",
+    "lint": "eslint --fix lib sample test",
     "test": "jest"
   },
   "dependencies": {
@@ -35,8 +35,9 @@
   },
   "jest": {
     "coveragePathIgnorePatterns": [
-      "/node_modules/", 
-      "/test/"
+      "<rootDir>/node_modules/", 
+      "<rootDir>/sample/",
+      "<rootDir>/test/"
     ],
     "resetModules": true
   },

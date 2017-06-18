@@ -410,14 +410,15 @@ describe("setRoutes", () => {
   });
 
   test("should infer the controller by path's name", () => {
+    const controllersPath = path.join(__dirname, "../../sample/controller");
     const paths = {
-      controllers: path.resolve(__dirname, "../mock/controller")
+      controllers: controllersPath
     };
 
     const swagger = {
       basePath: "/api",
       paths: {
-        "/hello": {}
+        "/contacts": {}
       }
     };
 
@@ -426,29 +427,30 @@ describe("setRoutes", () => {
       swagger
     });
 
-    const HelloController = require("../mock/controller/hello-controller");
+    const ContactsController = require(path.join(controllersPath, "contacts-controller"));
     const spySetRoutesForPath = jest.spyOn(router, "setRoutesForPath")
       .mockReturnValue();
 
     router.setRoutes();
 
     expect(spySetRoutesForPath).toHaveBeenCalledWith({
-      controller: new HelloController(),
-      routePath: "/api/hello",
+      controller: new ContactsController(),
+      routePath: "/api/contacts",
       pathDefinition: {}
     });
   });
 
   test("should load with x-controller", () => {
+    const controllersPath = path.join(__dirname, "../../sample/controller");
     const paths = {
-      controllers: path.resolve(__dirname, "../mock/controller")
+      controllers: controllersPath
     };
 
     const swagger = {
       basePath: "/api",
       paths: {
-        "/hi": {
-          "x-controller": "hola"
+        "/agenda": {
+          "x-controller": "events"
         }
       }
     };
@@ -458,34 +460,35 @@ describe("setRoutes", () => {
       swagger
     });
 
-    const HolaController = require("../mock/controller/hola-controller");
+    const EventsController = require(path.join(controllersPath, "events-controller"));
     const spySetRoutesForPath = jest.spyOn(router, "setRoutesForPath")
       .mockReturnValue();
 
     router.setRoutes();
 
     expect(spySetRoutesForPath).toHaveBeenCalledWith({
-      controller: new HolaController(),
-      routePath: "/api/hi",
+      controller: new EventsController(),
+      routePath: "/api/agenda",
       pathDefinition: {
-        "x-controller": "hola"
+        "x-controller": "events"
       }
     });
   });
 
   test("should set routes for paths", () => {
+    const controllersPath = path.join(__dirname, "../../sample/controller");
     const paths = {
-      controllers: path.resolve(__dirname, "../mock/controller")
+      controllers: controllersPath
     };
 
     const swagger = {
       basePath: "/api",
       paths: {
-        "/hello": {
-          "x-controller": "hello"
+        "/contacts": {
+          "x-controller": "contacts"
         },
-        "/hi": {
-          "x-controller": "hola"
+        "/agenda": {
+          "x-controller": "events"
         }
       }
     };
@@ -495,8 +498,8 @@ describe("setRoutes", () => {
       swagger
     });
 
-    const HelloController = require("../mock/controller/hello-controller");
-    const HolaController = require("../mock/controller/hola-controller");
+    const ContactsController = require(path.join(controllersPath, "contacts-controller"));
+    const EventsController = require(path.join(controllersPath, "events-controller"));
     const spySetRoutesForPath = jest.spyOn(router, "setRoutesForPath")
       .mockReturnValue();
 
@@ -505,17 +508,17 @@ describe("setRoutes", () => {
     expect(spySetRoutesForPath.mock.calls).toEqual(
       expect.arrayContaining([
         [{
-          controller: new HelloController(),
-          routePath: "/api/hello",
+          controller: new ContactsController(),
+          routePath: "/api/contacts",
           pathDefinition: {
-            "x-controller": "hello"
+            "x-controller": "contacts"
           }
         }],
         [{
-          controller: new HolaController(),
-          routePath: "/api/hi",
+          controller: new EventsController(),
+          routePath: "/api/agenda",
           pathDefinition: {
-            "x-controller": "hola"
+            "x-controller": "events"
           }
         }],
       ])
