@@ -1,6 +1,6 @@
-const App = require("../../lib/helper/app");
+const App = require("../../lib/service/app");
 
-describe("construct", () => {
+describe("constructor", () => {
 
 });
 

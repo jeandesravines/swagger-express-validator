@@ -1,10 +1,10 @@
-const path = require('path');
-const Sandbox = require('@jdes/jest-sandbox');
-const SwaggerRouter = require('../../lib/middleware/router');
+const path = require("path");
+const Sandbox = require("@jdes/jest-sandbox");
+const SwaggerRouter = require("../../lib/middleware/swagger-router");
 const NotFoundError = require("../../lib/error/common/not-found-error");
 
-const Request = require('../mock/request');
-const Response = require('../mock/response');
+const Request = require("../mock/request");
+const Response = require("../mock/response");
 
 const sandbox = new Sandbox();
 
@@ -12,62 +12,63 @@ afterEach(() => {
   sandbox.restoreAllMocks();
 });
 
-describe('constructor', () => {
-  it('set options and router', () => {
+describe("constructor", () => {
+  test("set options and router", () => {
     const router = new SwaggerRouter({
       swagger: {
-        basepath: '/'
+        basepath: "/"
       },
       paths: {
-        controllers: '/controllers'
+        controllers: "/controllers"
       }
     });
 
-    expect(typeof router.router).toBe('function');
+    expect(typeof router.router).toBe("function");
     expect(router.initialized).toBe(false);
     expect(router.swagger).toMatchObject({
-      basepath: '/'
+      basepath: "/"
     });
 
     expect(router.paths).toMatchObject({
-      controllers: '/controllers',
+      controllers: "/controllers",
     });
   });
 });
 
-describe('initialize', () => {
-  it('calls initialization functions', () => {
+describe("initialize", () => {
+  test("calls initialization functions", () => {
     const router = new SwaggerRouter({
       swagger: {},
       paths: {}
     });
 
     const spySetDefaultRoutes = jest
-      .spyOn(router, 'setDefaultRoute')
+      .spyOn(router, "setDefaultRoute")
       .mockReturnValue();
 
     const spySetRoutes = jest
-      .spyOn(router, 'setRoutes')
+      .spyOn(router, "setRoutes")
       .mockReturnValue();
 
-    router.initialize();
+    const value = router.initialize();
 
+    expect(value).toBe(router);
     expect(spySetDefaultRoutes).toHaveBeenCalled();
     expect(spySetRoutes).toHaveBeenCalled();
   });
 
-  it('doesn\'t calls initialization functions twice', () => {
+  test("doesn't calls initialization functions twice", () => {
     const router = new SwaggerRouter({
       swagger: {},
       paths: {}
     });
 
     const spySetDefaultRoutes = jest
-      .spyOn(router, 'setDefaultRoute')
+      .spyOn(router, "setDefaultRoute")
       .mockReturnValue();
 
     const spySetRoutes = jest
-      .spyOn(router, 'setRoutes')
+      .spyOn(router, "setRoutes")
       .mockReturnValue();
 
     router.initialize();
@@ -75,6 +76,22 @@ describe('initialize', () => {
 
     expect(spySetDefaultRoutes).toHaveBeenCalledTimes(1);
     expect(spySetRoutes).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("middleware", () => {
+  test("return a router", () => {
+    const router = new SwaggerRouter({
+      swagger: {},
+      paths: {}
+    });
+
+    const spyInitialize = jest
+      .spyOn(router, "initialize")
+      .mockReturnThis();
+    
+    expect(spyInitialize).toHaveBeenCalled();
+    expect(router.middleware).toBe(router.router);
   });
 });
 
@@ -146,7 +163,7 @@ describe("routeMiddleware", () => {
 });
 
 describe("setDefaultRoute", () => {
-  it("set a default route", () => {
+  test("set a default route", () => {
     const req = new Request();
     const res = new Response();
     const next = () => void 0;
@@ -173,7 +190,7 @@ describe("setDefaultRoute", () => {
 });
 
 describe("setRoute", () => {
-  it("set a route", () => {
+  test("set a route", () => {
     const req = new Request();
     const res = new Response();
     const next = () => void 0;
@@ -204,7 +221,7 @@ describe("setRoute", () => {
 });
 
 describe("setRouteForPath", () => {
-  it("should do nothing - no valid verb", () => {
+  test("should do nothing - no valid verb", () => {
     const router = new SwaggerRouter({
       swagger: {},
       paths: {}
@@ -226,7 +243,7 @@ describe("setRouteForPath", () => {
     expect(spySetRoute).not.toHaveBeenCalledWith("/hello", );
   });
 
-  it("should throw an error - undefined function", () => {
+  test("should throw an error - undefined function", () => {
     const router = new SwaggerRouter({
       swagger: {},
       paths: {}
@@ -250,7 +267,7 @@ describe("setRouteForPath", () => {
     expect(spySetRoute).not.toHaveBeenCalled();
   });
 
-  it("set simple routes", () => {
+  test("set simple routes", () => {
     const router = new SwaggerRouter({
       swagger: {},
       paths: {}
@@ -283,7 +300,7 @@ describe("setRouteForPath", () => {
     );
   });
 
-  it("set default parameters", () => {
+  test("set default parameters", () => {
     const router = new SwaggerRouter({
       swagger: {},
       paths: {}
@@ -309,7 +326,7 @@ describe("setRouteForPath", () => {
     expect(pathDefinition.get.parameters).toEqual([]);
   });
 
-  it("set definition parameters", () => {
+  test("set definition parameters", () => {
     const router = new SwaggerRouter({
       swagger: {},
       paths: {}
@@ -345,7 +362,7 @@ describe("setRouteForPath", () => {
       }]));
   });
 
-  it("add definition parameters", () => {
+  test("add definition parameters", () => {
     const router = new SwaggerRouter({
       swagger: {},
       paths: {}

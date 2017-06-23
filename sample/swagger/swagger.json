@@ -1,0 +1,34 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Swagger Express Middleware Sample",
+    "contact": {
+      "name": "Jean Desravines",
+      "url": "http://www.jeandesravines.com",
+      "email": "hi@jeandesravines.com"
+    },
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "basePath": "/api",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/contacts": {
+      "$ref": "./path/contacts.json#/collection"
+    },
+    "/contacts/{contactId}": {
+      "$ref": "./path/contacts.json#/resource"
+    },
+    "/events": {
+      "$ref": "./path/events.json#/collection"
+    },
+    "/events/{eventId}": {
+      "$ref": "./path/events.json#/resource"
+    }
+  }
+}

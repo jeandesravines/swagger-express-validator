@@ -14,7 +14,7 @@ afterEach(() => {
 });
 
 describe('handler', () => {
-  it('should trow the given error', () => {
+  it('should trows the given error', () => {
     const err = new Error();
     const req = new Request();
     const res = new Response({
@@ -23,6 +23,26 @@ describe('handler', () => {
 
     expect(() => ErrorHandler.handler(err, req, res)).toThrow(err);
     expect(req.container.logger.error).toHaveBeenCalled();
+  });
+
+  it('should log without the default logger', () => {
+    const err = new Error();
+    const req = new Request();
+    const res = new Response({
+      headersSent: true,
+      app: {
+        locals: {
+          logger: {
+            error: jest.fn()
+          }
+        }
+      }
+    });
+
+    delete req.container;
+
+    expect(() => ErrorHandler.handler(err, req, res)).toThrow(err);
+    expect(req.app.locals.logger.error).toHaveBeenCalled();
   });
 
   it('should set response - development=false, status=503', () => {
@@ -127,11 +147,11 @@ describe("middleware", () => {
     const res = new Response();
     const err = new Error();
     const next = () => void 0;
-    
+
     const spyError = sandbox.spyOn(Middleware, "error");
     const spyHandler = sandbox.spyOn(ErrorHandler, "handler")
       .mockReturnValue();
-    
+
     return ErrorHandler.middleware(err, req, res, next)
       .then(() => {
         expect(spyError).toHaveBeenCalledWith(err, req, res, next);
