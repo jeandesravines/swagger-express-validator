@@ -15,7 +15,7 @@ afterEach(() => {
 describe("constructor", () => {
   test("set options and router", () => {
     const router = new SwaggerRouter({
-      swagger: {
+      api: {
         basepath: "/"
       },
       paths: {
@@ -23,9 +23,8 @@ describe("constructor", () => {
       }
     });
 
-    expect(typeof router.router).toBe("function");
-    expect(router.initialized).toBe(false);
-    expect(router.swagger).toMatchObject({
+    expect(router.router).toEqual(expect.any(Function));
+    expect(router.api).toMatchObject({
       basepath: "/"
     });
 
@@ -38,7 +37,7 @@ describe("constructor", () => {
 describe("initialize", () => {
   test("calls initialization functions", () => {
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
 
@@ -50,47 +49,20 @@ describe("initialize", () => {
       .spyOn(router, "setRoutes")
       .mockReturnValue();
 
-    const value = router.initialize();
+    router.initialize();
 
-    expect(value).toBe(router);
     expect(spySetDefaultRoutes).toHaveBeenCalled();
     expect(spySetRoutes).toHaveBeenCalled();
-  });
-
-  test("doesn't calls initialization functions twice", () => {
-    const router = new SwaggerRouter({
-      swagger: {},
-      paths: {}
-    });
-
-    const spySetDefaultRoutes = jest
-      .spyOn(router, "setDefaultRoute")
-      .mockReturnValue();
-
-    const spySetRoutes = jest
-      .spyOn(router, "setRoutes")
-      .mockReturnValue();
-
-    router.initialize();
-    router.initialize();
-
-    expect(spySetDefaultRoutes).toHaveBeenCalledTimes(1);
-    expect(spySetRoutes).toHaveBeenCalledTimes(1);
   });
 });
 
 describe("middleware", () => {
   test("return a router", () => {
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
-
-    const spyInitialize = jest
-      .spyOn(router, "initialize")
-      .mockReturnThis();
     
-    expect(spyInitialize).toHaveBeenCalled();
     expect(router.middleware).toBe(router.router);
   });
 });
@@ -106,7 +78,7 @@ describe("defaultRouteMiddleware", () => {
     });
 
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
 
@@ -125,7 +97,7 @@ describe("defaultRouteMiddleware", () => {
     });
 
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
 
@@ -147,7 +119,7 @@ describe("routeMiddleware", () => {
     };
 
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
 
@@ -168,7 +140,7 @@ describe("setDefaultRoute", () => {
     const res = new Response();
     const next = () => void 0;
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
 
@@ -195,7 +167,7 @@ describe("setRoute", () => {
     const res = new Response();
     const next = () => void 0;
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
 
@@ -223,7 +195,7 @@ describe("setRoute", () => {
 describe("setRouteForPath", () => {
   test("should do nothing - no valid verb", () => {
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
 
@@ -245,7 +217,7 @@ describe("setRouteForPath", () => {
 
   test("should throw an error - undefined function", () => {
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
 
@@ -269,7 +241,7 @@ describe("setRouteForPath", () => {
 
   test("set simple routes", () => {
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
 
@@ -302,7 +274,7 @@ describe("setRouteForPath", () => {
 
   test("set default parameters", () => {
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
 
@@ -328,7 +300,7 @@ describe("setRouteForPath", () => {
 
   test("set definition parameters", () => {
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
 
@@ -364,7 +336,7 @@ describe("setRouteForPath", () => {
 
   test("add definition parameters", () => {
     const router = new SwaggerRouter({
-      swagger: {},
+      api: {},
       paths: {}
     });
 
@@ -413,7 +385,7 @@ describe("setRoutes", () => {
   test("should do nothing - no paths", () => {
     const router = new SwaggerRouter({
       paths: {},
-      swagger: {
+      api: {
         paths: {}
       }
     });
@@ -432,7 +404,7 @@ describe("setRoutes", () => {
       controllers: controllersPath
     };
 
-    const swagger = {
+    const api = {
       basePath: "/api",
       paths: {
         "/contacts": {}
@@ -441,7 +413,7 @@ describe("setRoutes", () => {
 
     const router = new SwaggerRouter({
       paths,
-      swagger
+      api
     });
 
     const ContactsController = require(path.join(controllersPath, "contacts-controller"));
@@ -463,7 +435,7 @@ describe("setRoutes", () => {
       controllers: controllersPath
     };
 
-    const swagger = {
+    const api = {
       basePath: "/api",
       paths: {
         "/agenda": {
@@ -474,7 +446,7 @@ describe("setRoutes", () => {
 
     const router = new SwaggerRouter({
       paths,
-      swagger
+      api
     });
 
     const EventsController = require(path.join(controllersPath, "events-controller"));
@@ -498,7 +470,7 @@ describe("setRoutes", () => {
       controllers: controllersPath
     };
 
-    const swagger = {
+    const api = {
       basePath: "/api",
       paths: {
         "/contacts": {
@@ -512,7 +484,7 @@ describe("setRoutes", () => {
 
     const router = new SwaggerRouter({
       paths,
-      swagger
+      api
     });
 
     const ContactsController = require(path.join(controllersPath, "contacts-controller"));

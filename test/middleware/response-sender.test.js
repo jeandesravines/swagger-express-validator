@@ -12,8 +12,8 @@ describe('handler', () => {
     ResponseSender.handler(req, res);
 
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.send).toHaveBeenCalledWith(undefined);
-    expect(res.set).toHaveBeenCalledWith(undefined);
+    expect(res.send).toHaveBeenCalledWith(void 0);
+    expect(res.set).toHaveBeenCalledWith(void 0);
     expect(req.container.logger.debug).toHaveBeenCalled();
   });
 
