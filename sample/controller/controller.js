@@ -15,7 +15,7 @@ class Controller {
   }
 
   deleteAction(req) {
-    const id = req.params.contactId;
+    const id = req.pathParams.id;
     const key = `${this.name}.${id}`;
     const deleted = db.unset({
       key
@@ -35,7 +35,7 @@ class Controller {
   }
 
   getAction(req) {
-    const id = req.params.contactId;
+    const id = req.pathParams.id;
     const key = `${this.name}.${id}`;
     const value = db.get({
       key
@@ -62,7 +62,7 @@ class Controller {
   }
 
   patchAction(req) {
-    const id = req.params.contactId;
+    const id = req.pathParams.id;
     const key = `${this.name}.${id}`;
     const body = Object.assign({}, req.body, {
       id
@@ -76,7 +76,7 @@ class Controller {
   }
 
   putAction(req) {
-    const id = req.params.contactId || uuid.v4();
+    const id = req.pathParams.id || uuid.v4();
     const key = `${this.name}.${id}`;
     const body = Object.assign({}, req.body, {
       id

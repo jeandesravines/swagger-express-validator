@@ -1,7 +1,7 @@
 {
   "parameters": {
-    "eventId": {
-      "name": "eventId",
+    "id": {
+      "name": "id",
       "in": "path",
       "required": true,
       "type": "string"
@@ -10,7 +10,7 @@
   "resource": {
     "x-controller": "events",
     "parameters": [{
-      "$ref": "#/parameters/eventId"
+      "$ref": "#/parameters/id"
     }],
     "get": {
       "responses": {
@@ -49,6 +49,11 @@
     "x-controller": "events",
     "get": {
       "x-method": "getAll",
+      "parameters": [{
+        "$ref": "../definition/parameters.json#/offset"
+      }, {
+        "$ref": "../definition/parameters.json#/limit"
+      }],
       "responses": {
         "200": {
           "description": "Get events",

@@ -21,13 +21,13 @@
     "/contacts": {
       "$ref": "./path/contacts.json#/collection"
     },
-    "/contacts/{contactId}": {
+    "/contacts/{id}": {
       "$ref": "./path/contacts.json#/resource"
     },
     "/events": {
       "$ref": "./path/events.json#/collection"
     },
-    "/events/{eventId}": {
+    "/events/{id}": {
       "$ref": "./path/events.json#/resource"
     }
   }

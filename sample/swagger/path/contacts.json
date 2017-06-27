@@ -1,7 +1,7 @@
 {
   "parameters": {
-    "contactId": {
-      "name": "contactId",
+    "id": {
+      "name": "id",
       "in": "path",
       "required": true,
       "type": "string"
@@ -10,7 +10,7 @@
   "resource": {
     "x-controller": "contacts",
     "parameters": [{
-      "$ref": "#/parameters/contactId"
+      "$ref": "#/parameters/id"
     }],
     "get": {
       "responses": {
@@ -49,6 +49,11 @@
     "x-controller": "contacts",
     "get": {
       "x-method": "getAll",
+      "parameters": [{
+        "$ref": "../definition/parameters.json#/offset"
+      }, {
+        "$ref": "../definition/parameters.json#/limit"
+      }],
       "responses": {
         "200": {
           "description": "Get contacts",

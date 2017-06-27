@@ -21,14 +21,17 @@ class LodashDb {
       key,
       isCollection,
       offset,
-      limit
+      limit,
+      filter = {}
     } = options;
 
     const value = _.get(this.schema, key);
 
     if (isCollection) {
-      return _.values(value)
-        .slice(offset, limit);
+      return _.chain(value)
+        .filter(filter)
+        .slice(offset, limit)
+        .value();
     }
 
     return value;

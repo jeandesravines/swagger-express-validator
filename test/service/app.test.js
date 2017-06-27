@@ -4,11 +4,6 @@ const Sandbox = require("@jdes/jest-sandbox");
 const SwaggerParser = require("swagger-parser")
 const App = require("../../lib/service/app");
 const SwaggerRouter = require('../../lib/middleware/swagger-router');
-const RequestHandler = require('../../lib/middleware/request-handler');
-const RequestPerformer = require('../../lib/middleware/request-performer');
-const ResponseValidator = require('../../lib/middleware/response-validator');
-const ResponseSender = require('../../lib/middleware/response-sender');
-const ErrorHandler = require('../../lib/middleware/error-handler');
 
 const sandbox = new Sandbox();
 
@@ -136,7 +131,7 @@ describe("initializeMiddlewares", () => {
       parseRequest: () => () => void 0,
       validateRequest: () => () => void 0,
     };
-    
+
     sandbox
       .spyOn(SwaggerRouter.prototype, "initialize")
       .mockReturnValue();
@@ -144,22 +139,8 @@ describe("initializeMiddlewares", () => {
     app.initializeApp({});
     app.initializeRouter();
     app.initializeMiddlewares(middlewares);
-
+    
     expect(spyUse).toHaveBeenCalledTimes(10);
-    expect(spyUse.mock.calls.map((arr) => arr[0])).toEqual(
-      ([
-        middlewares.metadata(),
-        middlewares.CORS(),
-        middlewares.parseRequest(),
-        middlewares.validateRequest(),
-        app.router.middleware,
-        RequestHandler.middleware,
-        RequestPerformer.middleware,
-        ResponseValidator.middleware,
-        ResponseSender.middleware,
-        ErrorHandler.middleware,
-      ])
-    );
   });
 
   test("should add hooks", () => {
@@ -181,7 +162,7 @@ describe("initializeMiddlewares", () => {
       parseRequest: () => () => void 0,
       validateRequest: () => () => void 0,
     };
-    
+
     sandbox
       .spyOn(SwaggerRouter.prototype, "initialize")
       .mockReturnValue();
@@ -191,21 +172,6 @@ describe("initializeMiddlewares", () => {
     app.initializeMiddlewares(middlewares);
 
     expect(spyUse).toHaveBeenCalledTimes(12);
-    expect(spyUse.mock.calls).toEqual(
-      ([
-        expect.arrayContaining([middlewares.metadata()]),
-        expect.arrayContaining([middlewares.CORS()]),
-        expect.arrayContaining([middlewares.parseRequest()]),
-        expect.arrayContaining([middlewares.validateRequest()]),
-        expect.arrayContaining([app.router.middleware]),
-        expect.arrayContaining([app.router.middleware]),
-        expect.arrayContaining([RequestHandler.middleware]),
-        expect.arrayContaining([RequestPerformer.middleware]),
-        expect.arrayContaining([ResponseValidator.middleware]),
-        expect.arrayContaining([ResponseSender.middleware]),
-        expect.arrayContaining([ErrorHandler.middleware]),
-      ])
-    );
   });
 });
 
