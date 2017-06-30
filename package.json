@@ -19,6 +19,7 @@
   "dependencies": {
     "ajv": "^5.1.5",
     "express": "^4.15.3",
+    "lodash": "^4.17.4",
     "swagger-express-middleware": "^1.0.0-alpha.12",
     "swagger-parser": "^3.4.1",
     "winston": "^2.3.1"
