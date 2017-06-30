@@ -1,3 +1,4 @@
-/yarn.locl
+/yarn.lock
+/yarn.err.log
 /coverage
 /node_modules
