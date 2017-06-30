@@ -1,0 +1,23 @@
+{
+  "resource": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "lastName": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": true
+  },
+  "collection": {
+    "type": "array",
+    "items": {
+      "$ref": "#/resource"
+    }
+  }
+}

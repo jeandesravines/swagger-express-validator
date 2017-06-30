@@ -1,0 +1,33 @@
+{
+  "resource": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "start": {
+        "type": "integer"
+      },
+      "end": {
+        "type": "integer"
+      },
+      "allDay": {
+        "type": "boolean"
+      }
+    },
+    "additionalProperties": true,
+    "required": [
+      "start",
+      "title"
+    ]
+  },
+  "collection": {
+    "type": "array",
+    "items": {
+      "$ref": "#/resource"
+    }
+  }
+}

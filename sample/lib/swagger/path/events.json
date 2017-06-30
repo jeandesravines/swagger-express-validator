@@ -1,0 +1,106 @@
+{
+  "parameters": {
+    "id": {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "type": "string"
+    }
+  },
+  "resource": {
+    "x-controller": "events",
+    "parameters": [{
+      "$ref": "#/parameters/id"
+    }],
+    "get": {
+      "responses": {
+        "200": {
+          "description": "Get a event",
+          "schema": {
+            "$ref": "../definition/events.json#/resource"
+          }
+        }
+      }
+    },
+    "patch": {
+      "parameters": [{
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "$ref": "../definition/events.json#/resource"
+        }
+      }],
+      "responses": {
+        "204": {
+          "description": "Update a part of an event"
+        }
+      }
+    },
+    "put": {
+      "parameters": [{
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "$ref": "../definition/events.json#/resource"
+        }
+      }],
+      "responses": {
+        "204": {
+          "description": "Update a part of an event",
+        }
+      }
+    },
+    "delete": {
+      "responses": {
+        "204": {
+          "description": "Delete an event"
+        }
+      }
+    },
+  },
+  "collection": {
+    "x-controller": "events",
+    "get": {
+      "x-method": "getAll",
+      "parameters": [{
+        "$ref": "../definition/parameters.json#/offset"
+      }, {
+        "$ref": "../definition/parameters.json#/limit"
+      }],
+      "responses": {
+        "200": {
+          "description": "Get events",
+          "schema": {
+            "$ref": "../definition/events.json#/collection"
+          }
+        }
+      },
+    },
+    "post": {
+      "x-method": "put",
+      "parameters": [{
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "$ref": "../definition/events.json#/resource"
+        }
+      }],
+      "responses": {
+        "201": {
+          "description": "Add an event"
+        }
+      }
+    },
+    "delete": {
+      "x-method": "deleteAll",
+      "responses": {
+        "204": {
+          "description": "Delete events"
+        }
+      }
+    }
+  }
+}
