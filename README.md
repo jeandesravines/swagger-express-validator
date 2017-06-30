@@ -9,7 +9,8 @@ A Swagger validator and router for Express.js
 
 * [Setup](#setup)
 * [API](#api)
-* [Examples](#examples)
+* [Sample](#sample)
+* [Examples](#example)
 
 
 ## Setup
@@ -105,7 +106,7 @@ Parent class of the validator's errors.
 
 A sample is available to help ou to write your own app with swagger-express-validator.
 
-## Examples
+## Example
 
 ```javascript
 const App = require("@jdes/swagger-express-validator").App;
