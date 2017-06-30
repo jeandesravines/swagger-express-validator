@@ -1,0 +1,23 @@
+{
+  "offset": {
+    "name": "offset",
+    "in": "query",
+    "type": "integer",
+    "minimum": 0
+  },
+  "limit": {
+    "name": "limit",
+    "in": "query",
+    "type": "integer",
+    "minimum": 0
+  },
+  "fields": {
+    "name": "fields",
+    "in": "query",
+    "type": "array",
+    "collectionFormat": "csv",
+    "items": {
+      "type": "string"
+    }
+  }
+}
