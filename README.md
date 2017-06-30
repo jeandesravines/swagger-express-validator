@@ -10,7 +10,7 @@ A Swagger validator and router for Express.js
 * [Setup](#setup)
 * [API](#api)
 * [Sample](#sample)
-* [Examples](#example)
+* [Example](#example)
 
 
 ## Setup
@@ -29,32 +29,31 @@ Start the server.
 
 ##### `app` An Express' app created with express()
 
-* type: express.App
-* required: false
-* default: express()
+* type: `express.App`
+* required: `false`
+* default: `express()`
 
 Example:
 ```javascript
 const app = express();
 const options = {
-  app: app@
+  app: app
 };
 ```
 
 ##### `hooks` A list of middleware' hooks
 
-A list of hook for every used middlewares:
+* type: `Object.<{before: Function, after: Function}>`
+* required: `false`
+* default: `{}`
+
+A list of hooks for every used middlewares:
 * swaggerRouter: Get the right method for the current route
 * requestHandler: Check parameters, and default response
 * requestPerformer: Execute the controller's method with the `req`
 * responseValidator: Validate the `req.response` with the associated schema
 * responseSender: Get the `req.response` object and send it
 * errorHandler: Error middleware
-
-
-* type: `Object.<{before: Function, after: Function}>`
-* required: false
-* default: {}
 
 Example:
 ```javascript
@@ -65,6 +64,12 @@ const options = {
         console.log("Hello World!");
         next();
       }
+    },
+    errorHandler: {
+      after: (req, res, next) => {
+        console.error("Arrrghhh");
+        next();
+      }
     }
   }
 };
@@ -72,9 +77,9 @@ const options = {
 
 ##### `logger` A Logger
 
-* type: winston.Logger
-* required: false
-* default: winston
+* type: `winston.Logger`
+* required: `false`
+* default: `winston`
 
 Example: 
 ```javascript
@@ -85,8 +90,8 @@ const options ={
 
 ##### `paths` The required paths
 
-* type: Object.<string>
-* required: true
+* type: `Object.<string>`
+* required: `true`
 
 Example:
 ```javascript
