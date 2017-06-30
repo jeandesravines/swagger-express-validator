@@ -24,9 +24,86 @@ npm install --save-dev @jdes/swagger-express-validator
 
 Start the server.
 
+#### Options
+
+##### `app` An Express' app created with express()
+
+* type: express.App
+* required: false
+* default: express()
+
+Example:
+```javascript
+const app = express();
+const options = {
+  app: app@
+};
+```
+
+##### `hooks` A list of middleware' hooks
+
+A list of hook for every used middlewares:
+* swaggerRouter: Get the right method for the current route
+* requestHandler: Check parameters, and default response
+* requestPerformer: Execute the controller's method with the `req`
+* responseValidator: Validate the `req.response` with the associated schema
+* responseSender: Get the `req.response` object and send it
+* errorHandler: Error middleware
+
+
+* type: `Object.<{before: Function, after: Function}>`
+* required: false
+* default: {}
+
+Example:
+```javascript
+const options = {
+  hooks: {
+    requestHandler: {
+      before: (req, res, next) => {
+        console.log("Hello World!");
+        next();
+      }
+    }
+  }
+};
+```
+
+##### `logger` A Logger
+
+* type: winston.Logger
+* required: false
+* default: winston
+
+Example: 
+```javascript
+const options ={
+  logger: winston
+};
+```
+
+##### `paths` The required paths
+
+* type: Object.<string>
+* required: true
+
+Example:
+```javascript
+const options = {
+  paths: {
+    controllers: path.join(__dirname, "controller"),
+    swagger: path.join(__dirname, "swagger", "swagger.json")
+  }
+};
+```
+
 ### HttpError: Error
 
 Parent class of the validator's errors.
+
+## Sample
+
+A sample is available to help ou to write your own app with swagger-express-validator.
 
 ## Examples
 
@@ -38,7 +115,7 @@ const logger = require("winston");
 const options = {
   logger,
   paths: {
-    controllers: path.join(__dirname, "controllers"),
+    controllers: path.join(__dirname, "controller"),
     swagger: path.join(__dirname, "swagger", "swagger.json")
   }
 };
