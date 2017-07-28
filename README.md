@@ -83,7 +83,7 @@ const options = {
 
 Example: 
 ```javascript
-const options ={
+const options = {
   logger: winston
 };
 ```
