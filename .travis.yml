@@ -3,7 +3,7 @@ cache: yarn
 node_js:
   - "7"
 
-install:
+before_script:
   - yarn global add codecov
 
 script: 
