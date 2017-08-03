@@ -83,8 +83,21 @@ const options = {
 
 Example: 
 ```javascript
-const options ={
+const options = {
   logger: winston
+};
+```
+
+##### `logLevel` The logger's log level
+
+* type: `string`
+* required: `false`
+* default: `info`
+
+Example: 
+```javascript
+const options = {
+  logLevel: 'debug'
 };
 ```
 
