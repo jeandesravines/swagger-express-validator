@@ -92,7 +92,9 @@ const options = {
 
 * type: `string`
 * required: `false`
-* default: `info`
+* default: `options.logger.level` || `info`
+
+Useful if you don't pass a logger.
 
 Example: 
 ```javascript
