@@ -126,7 +126,7 @@ describe("routeMiddleware", () => {
     router.routeMiddleware(controller, controller.getAction, req, res, next);
 
     expect(next).toHaveBeenCalled();
-    expect(req.app.locals.logger.debug).toHaveBeenCalled();
+    expect(req.app.locals.logger.info).toHaveBeenCalled();
     expect(req.container).toMatchObject({
       handler: expect.any(Function),
       logger: req.app.locals.logger

@@ -5,6 +5,7 @@ beforeEach(() => {
   return require(process.cwd() + "/sample/lib")
     .then((server) => {
       app = server;
+      app.locals.logger.level = 0;
     });
 });
 

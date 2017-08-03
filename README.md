@@ -88,6 +88,21 @@ const options = {
 };
 ```
 
+##### `logLevel` The logger's log level
+
+* type: `string`
+* required: `false`
+* default: `options.logger.level` || `info`
+
+Useful if you don't pass a logger.
+
+Example: 
+```javascript
+const options = {
+  logLevel: 'debug'
+};
+```
+
 ##### `paths` The required paths
 
 * type: `Object.<string>`
