@@ -514,3 +514,23 @@ describe("setRoutes", () => {
     );
   });
 });
+
+describe("getUrl", () => {
+  test("returns full url", () => {
+    const router = new SwaggerRouter({
+      paths: {},
+      api: {
+        basePath: "/api"
+      }
+    });
+    
+    const req = new Request({
+      get: (key) => key === "host" && "www.jeandesravines.com", 
+      protocol: "http"
+    });
+
+    const url = router.getUrl(req, "users/1");
+    
+    expect(url).toBe("http://www.jeandesravines.com/api/users/1");
+  });
+});
